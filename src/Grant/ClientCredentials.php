@@ -5,6 +5,7 @@ namespace Stepapo\OAuth2\Grant;
 use Stepapo\OAuth2\Storage\ITokenFacade;
 use Stepapo\OAuth2\UnauthorizedClientException;
 
+
 /**
  * ClientCredentials
  * @package Stepapo\OAuth2\Grant
@@ -13,7 +14,6 @@ use Stepapo\OAuth2\UnauthorizedClientException;
 class ClientCredentials extends GrantType
 {
 	/**
-	 * Verify request
 	 * @throws UnauthorizedClientException
 	 */
 	protected function verifyRequest(): void
@@ -23,9 +23,7 @@ class ClientCredentials extends GrantType
 		}
 	}
 
-	/**
-	 * Generate access token
-	 */
+
 	protected function generateAccessToken(): array
 	{
 		$client = $this->getClient();
@@ -43,12 +41,9 @@ class ClientCredentials extends GrantType
 		];
 	}
 
-	/**
-	 * Get identifier string to this grant type
-	 */
+
 	public function getIdentifier(): string
 	{
 		return self::CLIENT_CREDENTIALS;
 	}
-
 }

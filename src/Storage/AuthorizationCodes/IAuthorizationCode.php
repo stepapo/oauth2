@@ -2,6 +2,7 @@
 
 namespace Stepapo\OAuth2\Storage\AuthorizationCodes;
 
+
 /**
  * IAuthorizationCode
  * @package Stepapo\OAuth2\Storage\AuthorizationCodes

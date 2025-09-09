@@ -1,7 +1,7 @@
 <?php
 
 namespace Stepapo\OAuth2\Storage\AuthorizationCodes;
-use Stepapo\OAuth2\InvalidScopeException;
+
 
 /**
  * IAuthorizationCodeStorage

@@ -6,15 +6,12 @@ use Stepapo\OAuth2\IKeyGenerator;
 use Stepapo\OAuth2\Storage\ITokenFacade;
 use Stepapo\OAuth2\Storage\InvalidAccessTokenException;
 use Stepapo\OAuth2\Storage\Clients\IClient;
-use Nette\SmartObject;
+
 
 /**
  * AccessToken
  * @package Stepapo\OAuth2\Token
  * @author Drahomír Hanák
- *
- * @property-read int $lifetime
- * @property-read IAccessTokenStorage $storage
  */
 class AccessTokenFacade implements ITokenFacade
 {
@@ -25,7 +22,7 @@ class AccessTokenFacade implements ITokenFacade
 	) {}
 
 
-	public function create(IClient $client, string|int $userId, array $scope = []): AccessToken
+	public function create(IClient $client, string|int|null $userId, array $scope = []): AccessToken
 	{
 		$accessExpires = new \DateTimeImmutable('+' . $this->lifetime . ' seconds');
 
@@ -71,5 +68,4 @@ class AccessTokenFacade implements ITokenFacade
 	{
 		return $this->storage;
 	}
-
 }

@@ -2,7 +2,6 @@
 
 namespace Stepapo\OAuth2\Storage\Clients;
 
-use Nette\SmartObject;
 
 /**
  * OAuth2 base client caret
@@ -34,5 +33,4 @@ class Client implements IClient
 	{
 		return $this->secret;
 	}
-
 }

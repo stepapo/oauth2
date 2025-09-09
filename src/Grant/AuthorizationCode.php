@@ -5,6 +5,7 @@ namespace Stepapo\OAuth2\Grant;
 use Stepapo\OAuth2\Storage;
 use Stepapo\OAuth2\Storage\ITokenFacade;
 
+
 /**
  * AuthorizationCode
  * @package Stepapo\OAuth2\Grant
@@ -12,10 +13,7 @@ use Stepapo\OAuth2\Storage\ITokenFacade;
  */
 class AuthorizationCode extends GrantType
 {
-
-	/** @var array */
 	private array $scope = [];
-
 	private Storage\AuthorizationCodes\AuthorizationCode $entity;
 
 
@@ -24,9 +22,7 @@ class AuthorizationCode extends GrantType
 		return $this->scope;
 	}
 
-	/**
-	 * Get authorization code identifier
-	 */
+
 	public function getIdentifier(): string
 	{
 		return self::AUTHORIZATION_CODE;
@@ -45,9 +41,7 @@ class AuthorizationCode extends GrantType
 		$this->token->getToken(ITokenFacade::AUTHORIZATION_CODE)->getStorage()->remove($code);
 	}
 
-	/**
-	 * Generate access token
-	 */
+
 	protected function generateAccessToken(): array
 	{
 		$client = $this->getClient();

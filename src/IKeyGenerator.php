@@ -2,6 +2,7 @@
 
 namespace Stepapo\OAuth2;
 
+
 /**
  * IKeyGenerator
  * @package Stepapo\OAuth2
@@ -9,12 +10,5 @@ namespace Stepapo\OAuth2;
  */
 interface IKeyGenerator
 {
-
-	/**
-	 * Generate random token
-	 * @param int $length
-	 * @return string
-	 */
-	public function generate($length = 40);
-
+	public function generate(int $length = 40): string;
 }

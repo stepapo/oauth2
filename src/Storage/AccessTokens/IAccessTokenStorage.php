@@ -1,7 +1,7 @@
 <?php
 
 namespace Stepapo\OAuth2\Storage\AccessTokens;
-use Stepapo\OAuth2\InvalidScopeException;
+
 
 /**
  * Access token storage interface

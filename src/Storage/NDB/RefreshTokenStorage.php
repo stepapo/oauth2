@@ -7,7 +7,7 @@ use Stepapo\OAuth2\Storage\RefreshTokens\IRefreshToken;
 use Stepapo\OAuth2\Storage\RefreshTokens\RefreshToken;
 use Nette\Database\Context;
 use Nette\Database\SqlLiteral;
-use Nette\SmartObject;
+
 
 /**
  * Nette database RefreshToken storage
@@ -16,29 +16,17 @@ use Nette\SmartObject;
  */
 class RefreshTokenStorage implements IRefreshTokenStorage
 {
-	/** @var Context */
-	private $context;
+	public function __construct(
+		private Context $context
+	) {}
 
-	public function __construct(Context $context)
-	{
-		$this->context = $context;
-	}
 
-	/**
-	 * Get authorization code table
-	 * @return \Nette\Database\Table\Selection
-	 */
-	protected function getTable()
+	protected function getTable(): \Nette\Database\Table\Selection
 	{
 		return $this->context->table('oauth_refresh_token');
 	}
 
-	/******************** IRefreshTokenStorage ********************/
 
-	/**
-	 * Store refresh token
-	 * @param IRefreshToken $refreshToken
-	 */
 	public function storeRefreshToken(IRefreshToken $refreshToken): void
 	{
 		$this->getTable()->insert([
@@ -49,21 +37,14 @@ class RefreshTokenStorage implements IRefreshTokenStorage
 		]);
 	}
 
-	/**
-	 * Remove refresh token
-	 * @param string $refreshToken
-	 */
-	public function removeRefreshToken($refreshToken): void
+
+	public function removeRefreshToken(string $refreshToken): void
 	{
 		$this->getTable()->where(['refresh_token' => $refreshToken])->delete();
 	}
 
-	/**
-	 * Get valid refresh token
-	 * @param string $refreshToken
-	 * @return IRefreshToken|null
-	 */
-	public function getValidRefreshToken($refreshToken): ?IRefreshToken
+
+	public function getValidRefreshToken(string $refreshToken): ?IRefreshToken
 	{
 		$row = $this->getTable()
 			->where(['refresh_token' => $refreshToken])
@@ -79,5 +60,4 @@ class RefreshTokenStorage implements IRefreshTokenStorage
 			$row['user_id']
 		);
 	}
-
 }

@@ -7,6 +7,7 @@ use Stepapo\OAuth2\InvalidStateException;
 use Stepapo\OAuth2\Storage\ITokenFacade;
 use Nette\Security\AuthenticationException;
 
+
 /**
  * Password grant type
  * @package Stepapo\OAuth2\Grant
@@ -14,18 +15,12 @@ use Nette\Security\AuthenticationException;
  */
 class Password extends GrantType
 {
-
-	/**
-	 * Get identifier string to this grant type
-	 */
 	public function getIdentifier(): string
 	{
 		return self::PASSWORD;
 	}
 
 	/**
-	 * Verify request
-	 *
 	 * @throws InvalidStateException
 	 * @throws AuthenticationException
 	 */
@@ -44,9 +39,7 @@ class Password extends GrantType
 		}
 	}
 
-	/**
-	 * Generate access token
-	 */
+
 	protected function generateAccessToken(): array
 	{
 		$accessTokenStorage = $this->token->getToken(ITokenFacade::ACCESS_TOKEN);
@@ -62,5 +55,4 @@ class Password extends GrantType
 			'refresh_token' => $refreshToken->getRefreshToken()
 		];
 	}
-
 }

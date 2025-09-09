@@ -2,6 +2,7 @@
 
 namespace Stepapo\OAuth2\Grant;
 
+
 /**
  * InvalidGrantTypeException
  * @package Stepapo\OAuth2\Grant

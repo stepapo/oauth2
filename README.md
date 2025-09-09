@@ -10,7 +10,7 @@ Installation & setup
 --------------------
 The easist way is to use [Composer](http://doc.nette.org/en/composer)
 
-	$ composer require drahak/oauth2:@dev
+    $ composer require drahak/oauth2:@dev
 
 Then add following code to your app bootstrap file before creating container:
 
@@ -20,23 +20,23 @@ Stepapo\OAuth2\DI\Extension::install($configurator);
 
 or register it in config.neon:
 
-```yaml
+```neon
 extensions:
   restful: Stepapo\Restful\DI\RestfulExtension
 ```
 
 Neon configuration
 ------------------
-```yaml
+```neon
 oauth2:
-	accessTokenLifetime: 3600 # 1 hour
-	refreshTokenLifetime: 36000 # 10 hours
-	authorizationCodeLifetime: 360 # 6 minutes
-	storage: 'ndb' # allowed values: 'ndb', 'dibi'
-	accessTokenStorage: 'Stepapo\OAuth2\Storage\NDB\AccessTokenStorage'
-	authorizationCodeStorage: 'Stepapo\OAuth2\Storage\NDB\AuthorizationCodeStorage'
-	clientStorage: 'Stepapo\OAuth2\Storage\NDB\ClientStorage'
-	refreshTokenStorage: 'Stepapo\OAuth2\Storage\NDB\RefreshTokenStorage'
+    accessTokenLifetime: 3600 # 1 hour
+    refreshTokenLifetime: 36000 # 10 hours
+    authorizationCodeLifetime: 360 # 6 minutes
+    storage: 'ndb' # allowed values: 'ndb', 'dibi'
+    accessTokenStorage: 'Stepapo\OAuth2\Storage\NDB\AccessTokenStorage'
+    authorizationCodeStorage: 'Stepapo\OAuth2\Storage\NDB\AuthorizationCodeStorage'
+    clientStorage: 'Stepapo\OAuth2\Storage\NDB\ClientStorage'
+    refreshTokenStorage: 'Stepapo\OAuth2\Storage\NDB\RefreshTokenStorage'
 ```
 
 - `accessTokenLifetime` - access token life time in seconds
@@ -97,36 +97,36 @@ use Stepapo\OAuth2\OAuthException;
 class AuthorizationPresenter extends Application\OAuthPresenter
 {
 
-	/**
-	 * Authorization
-	 * @param string $response_type
-	 * @param string $redirect_uri
-	 * @param string|null $scope
-	 */
-	public function actionAuthorize($response_type, $redirect_uri, $scope = NULL)
-	{
-		if (!$this->user->isLoggedIn()) {
-			$this->redirect('AnyUser:login', array('backlink' => $this->storeRequest()));
-		}
+    /**
+     * Authorization
+     * @param string $response_type
+     * @param string $redirect_uri
+     * @param string|null $scope
+     */
+    public function actionAuthorize($response_type, $redirect_uri, $scope = NULL)
+    {
+        if (!$this->user->isLoggedIn()) {
+            $this->redirect('AnyUser:login', array('backlink' => $this->storeRequest()));
+        }
 
-		if ($response_type == 'code') {
-			$this->issueAuthorizationCode($response_type, $redirect_uri, $scope);
-		} else if ($response_type == 'token') {
-			$this->issueAccessToken(IGrant::IMPLICIT, $redirect_uri);
-		}
-	}
+        if ($response_type == 'code') {
+            $this->issueAuthorizationCode($response_type, $redirect_uri, $scope);
+        } else if ($response_type == 'token') {
+            $this->issueAccessToken(IGrant::IMPLICIT, $redirect_uri);
+        }
+    }
 
-	/**
-	 * Access token provider
-	 */
-	public function actionToken()
-	{
-		try {
-			$this->issueAccessToken();
-		} catch (OAuthException $e) {
-			$this->oauthError($e);
-		}
-	}
+    /**
+     * Access token provider
+     */
+    public function actionToken()
+    {
+        try {
+            $this->issueAccessToken();
+        } catch (OAuthException $e) {
+            $this->oauthError($e);
+        }
+    }
 
 }
 ```
@@ -170,10 +170,10 @@ Since you have authorization code you can make access token request (data provid
 
 ```
 POST //oauth.presenter.url/token
-	grant_type=authorization_code
-	&code=AUTHORIZATION_CODE
-	&client_id=CLIENT_ID
-	&client_secret=CLIENT_SECRET
+    grant_type=authorization_code
+    &code=AUTHORIZATION_CODE
+    &client_id=CLIENT_ID
+    &client_secret=CLIENT_SECRET
 ```
 
 - [REQUIRED] **grant_type** - this parameter says OAuth to use Authorization code
@@ -184,18 +184,18 @@ POST //oauth.presenter.url/token
 ##### Access token response
 ```
 {
-	"access_token": "AnlSCIWYbchsCc5sdc5ac4caca8a2",
-	"token_type": "bearer",
-	"expires_in": 3600,
-	"refresh_token": "DS6SA512ADCVa51adc54VDS51VD5"
+    "access_token": "AnlSCIWYbchsCc5sdc5ac4caca8a2",
+    "token_type": "bearer",
+    "expires_in": 3600,
+    "refresh_token": "DS6SA512ADCVa51adc54VDS51VD5"
 }
 ```
 
 In case or error, provides JSON response:
 ```
 {
-	"error": "invalid_request",
-	"error_description": "Invalid authorization code"
+    "error": "invalid_request",
+    "error_description": "Invalid authorization code"
 }
 ```
 
@@ -233,10 +233,10 @@ Is used for trusted (usually first-party) applications, where you completely tru
 
 ```
 POST //oauth.presenter.url/token
-	grant_type=password
-	&username=USERNAME
-	&password=PASSWORD
-	&client_id=CLIENT_ID
+    grant_type=password
+    &username=USERNAME
+    &password=PASSWORD
+    &client_id=CLIENT_ID
 ```
 
 - [REQUIRED] **grant_type** - Password grant type uses identifier (so unexpectedly) `password`
@@ -247,18 +247,18 @@ POST //oauth.presenter.url/token
 ##### Access token response
 ```
 {
-	"access_token": "AnlSCIWYbchsCc5sdc5ac4caca8a2",
-	"token_type": "bearer",
-	"expires_in": 3600,
-	"refresh_token": "DS6SA512ADCVa51adc54VDS51VD5"
+    "access_token": "AnlSCIWYbchsCc5sdc5ac4caca8a2",
+    "token_type": "bearer",
+    "expires_in": 3600,
+    "refresh_token": "DS6SA512ADCVa51adc54VDS51VD5"
 }
 ```
 
 In case or error:
 ```
 {
-	"error": "invalid_request",
-	"error_description": "Invalid authorization code"
+    "error": "invalid_request",
+    "error_description": "Invalid authorization code"
 }
 ```
 
@@ -270,9 +270,9 @@ If application needs to get access token for their own account outside the conte
 
 ```
 POST //oauth.presenter.url/token
-	grant_type=client_credentials
-	&client_id=CLIENT_ID
-	&client_SECRET=CLIENT_SECRET
+    grant_type=client_credentials
+    &client_id=CLIENT_ID
+    &client_SECRET=CLIENT_SECRET
 ```
 
 - [REQUIRED] **grant_type** - Password grant type uses identifier (so unexpectedly) `password`
@@ -282,18 +282,18 @@ POST //oauth.presenter.url/token
 ##### Access token response
 ```
 {
-	"access_token": "AnlSCIWYbchsCc5sdc5ac4caca8a2",
-	"token_type": "bearer",
-	"expires_in": 3600,
-	"refresh_token": "DS6SA512ADCVa51adc54VDS51VD5"
+    "access_token": "AnlSCIWYbchsCc5sdc5ac4caca8a2",
+    "token_type": "bearer",
+    "expires_in": 3600,
+    "refresh_token": "DS6SA512ADCVa51adc54VDS51VD5"
 }
 ```
 
 In case or error:
 ```
 {
-	"error": "invalid_request",
-	"error_description": "Invalid authorization code"
+    "error": "invalid_request",
+    "error_description": "Invalid authorization code"
 }
 ```
 
@@ -305,9 +305,9 @@ Is used to restore (actually re-generate) access token without authentication pr
 
 ```
 POST //oauth.presenter.url/token
-	grant_type=refresh_token
-	&refresh_token=DS6SA512ADCVa51adc54VDS51VD5
-	&client_id=CLIENT_ID
+    grant_type=refresh_token
+    &refresh_token=DS6SA512ADCVa51adc54VDS51VD5
+    &client_id=CLIENT_ID
 ```
 
 - [REQUIRED] **grant_type** - Refresh token identifier
@@ -317,17 +317,17 @@ POST //oauth.presenter.url/token
 ##### Access token response
 ```
 {
-	"access_token": "AnlSCIWYbchsCc5sdc5ac4caca8a2",
-	"token_type": "bearer",
-	"expires_in": 3600,
-	"refresh_token": "DS6SA512ADCVa51adc54VDS51VD5"
+    "access_token": "AnlSCIWYbchsCc5sdc5ac4caca8a2",
+    "token_type": "bearer",
+    "expires_in": 3600,
+    "refresh_token": "DS6SA512ADCVa51adc54VDS51VD5"
 }
 ```
 
 In case or error:
 ```
 {
-	"error": "invalid_request",
-	"error_description": "Invalid refresh token"
+    "error": "invalid_request",
+    "error_description": "Invalid refresh token"
 }
 ```

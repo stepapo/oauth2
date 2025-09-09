@@ -2,7 +2,6 @@
 
 namespace Stepapo\OAuth2\Storage\AuthorizationCodes;
 
-use Nette\SmartObject;
 
 /**
  * Base AuthorizationCode entity
@@ -48,5 +47,4 @@ class AuthorizationCode implements IAuthorizationCode
 	{
 		return $this->scope;
 	}
-
 }

@@ -11,15 +11,13 @@ use Stepapo\OAuth2\Storage\RefreshTokenFacade;
 use Stepapo\OAuth2\InvalidStateException;
 use Stepapo\OAuth2\Storage\TokenContext;
 use Stepapo\OAuth2\UnauthorizedClientException;
-use Nette\SmartObject;
 use Nette\Security\User;
+
 
 /**
  * GrantType
  * @package Stepapo\OAuth2\Grant
  * @author Drahomír Hanák
- *
- * @property-read string $identifier
  */
 abstract class GrantType implements IGrant
 {
@@ -28,8 +26,7 @@ abstract class GrantType implements IGrant
 	const CLIENT_SECRET_KEY = 'client_secret';
 	const GRANT_TYPE_KEY = 'grant_type';
 
-	/** @var IClient */
-	private $client;
+	private ?IClient $client;
 
 
 	public function __construct(
@@ -39,12 +36,10 @@ abstract class GrantType implements IGrant
 		protected User $user
 	) {}
 
-	/**
-	 * Get client
-	 */
-	protected function getClient(): IClient
+
+	protected function getClient(): ?IClient
 	{
-		if (!$this->client) {
+		if (!isset($this->client)) {
 			$clientId = $this->input->getParameter(self::CLIENT_ID_KEY);
 			$clientSecret = $this->input->getParameter(self::CLIENT_SECRET_KEY);
 			$this->client = $this->clientStorage->getClient($clientId, $clientSecret);
@@ -52,9 +47,7 @@ abstract class GrantType implements IGrant
 		return $this->client;
 	}
 
-	/**
-	 * Get scope as array - allowed separators: ',' AND ' '
-	 */
+
 	protected function getScope(): array
 	{
 		$scope = $this->input->getParameter(self::SCOPE_KEY) ?: '';
@@ -63,10 +56,8 @@ abstract class GrantType implements IGrant
 			$scope;
 	}
 
-	/****************** IGrant interface ******************/
 
 	/**
-	 * Get access token
 	 * @throws UnauthorizedClientException
 	 */
 	public final function getAccessToken(): array
@@ -76,14 +67,16 @@ abstract class GrantType implements IGrant
 		}
 
 		$this->verifyGrantType();
+		$grantType = $this->input->getParameter(self::GRANT_TYPE_KEY);
+		if (!$grantType) {
+			throw new InvalidGrantTypeException;
+		}
 		$this->verifyRequest();
 		return $this->generateAccessToken();
 	}
 
-	/****************** Access token template methods ******************/
 
 	/**
-	 * Verify grant type
 	 * @throws UnauthorizedClientException
 	 * @throws InvalidGrantTypeException
 	 */
@@ -99,14 +92,7 @@ abstract class GrantType implements IGrant
 		}
 	}
 
-	/**
-	 * Verify request
-	 */
+
 	protected abstract function verifyRequest(): void;
-
-	/**
-	 * Generate access token
-	 */
 	protected abstract function generateAccessToken(): array;
-
 }

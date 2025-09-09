@@ -6,7 +6,7 @@ use Stepapo\OAuth2\Storage\Clients\IClientStorage;
 use Stepapo\OAuth2\Storage\Clients\IClient;
 use Stepapo\OAuth2\Storage\Clients\Client;
 use Nette\Database\Context;
-use Nette\SmartObject;
+
 
 /**
  * Nette database client storage
@@ -15,30 +15,18 @@ use Nette\SmartObject;
  */
 class ClientStorage implements IClientStorage
 {
-	/** @var Context */
-	private $context;
+	public function __construct(
+		private Context $context
+	) {}
 
-	public function __construct(Context $context)
-	{
-		$this->context = $context;
-	}
 
-	/**
-	 * Get client table selection
-	 * @return \Nette\Database\Table\Selection
-	 */
-	protected function getTable()
+	protected function getTable(): \Nette\Database\Table\Selection
 	{
 		return $this->context->table('oauth_client');
 	}
 
-	/**
-	 * Find client by ID and/or secret key
-	 * @param string $clientId
-	 * @param string|null $clientSecret
-	 * @return IClient
-	 */
-	public function getClient($clientId, $clientSecret = null): ?IClient
+
+	public function getClient(string|int $clientId, ?string $clientSecret = null): ?IClient
 	{
 		if (!$clientId) return null;
 
@@ -51,13 +39,8 @@ class ClientStorage implements IClientStorage
 		return new Client($data['client_id'], $data['secret'], $data['redirect_url']);
 	}
 
-	/**
-	 * Can client use given grant type
-	 * @param string $clientId
-	 * @param string $grantType
-	 * @return bool
-	 */
-	public function canUseGrantType($clientId, $grantType): bool
+
+	public function canUseGrantType(string $clientId, string $grantType): bool
 	{
 		$result = $this->getTable()->getConnection()->query('
 			SELECT g.name

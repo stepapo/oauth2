@@ -9,7 +9,7 @@ use Stepapo\OAuth2\Storage\AccessTokens\IAccessToken;
 use Nette\Database\Context;
 use Nette\Database\SqlLiteral;
 use Nette\Database\Table\ActiveRow;
-use Nette\SmartObject;
+
 
 /**
  * AccessTokenStorage
@@ -18,32 +18,23 @@ use Nette\SmartObject;
  */
 class AccessTokenStorage implements IAccessTokenStorage
 {
-	public function __construct(private Context $context)
-	{}
+	public function __construct(
+		private Context $context
+	) {}
 
-	/**
-	 * Get authorization code table
-	 * @return \Nette\Database\Table\Selection
-	 */
-	protected function getTable()
+
+	protected function getTable(): \Nette\Database\Table\Selection
 	{
 		return $this->context->table('oauth_access_token');
 	}
 
-	/**
-	 * Get scope table
-	 * @return \Nette\Database\Table\Selection
-	 */
-	protected function getScopeTable()
+
+	protected function getScopeTable(): \Nette\Database\Table\Selection
 	{
 		return $this->context->table('oauth_access_token_scope');
 	}
 
-	/******************** IAccessTokenStorage ********************/
-
 	/**
-	 * Store access token
-	 * @param IAccessToken $accessToken
 	 * @throws InvalidScopeException
 	 */
 	public function storeAccessToken(IAccessToken $accessToken): void
@@ -74,21 +65,14 @@ class AccessTokenStorage implements IAccessTokenStorage
 		$connection->commit();
 	}
 
-	/**
-	 * Remove access token
-	 * @param string $accessToken
-	 */
-	public function removeAccessToken($accessToken): void
+
+	public function removeAccessToken(string $accessToken): void
 	{
 		$this->getTable()->where(['access_token' => $accessToken])->delete();
 	}
 
-	/**
-	 * Get valid access token
-	 * @param string $accessToken
-	 * @return IAccessToken|null
-	 */
-	public function getValidAccessToken($accessToken): ?IAccessToken
+
+	public function getValidAccessToken(string $accessToken): ?IAccessToken
 	{
 		/** @var ActiveRow $row */
 		$row = $this->getTable()
@@ -110,6 +94,4 @@ class AccessTokenStorage implements IAccessTokenStorage
 			array_keys($scopes)
 		);
 	}
-
-
 }

@@ -6,7 +6,6 @@ use Stepapo\OAuth2\IKeyGenerator;
 use Stepapo\OAuth2\Storage\ITokenFacade;
 use Stepapo\OAuth2\Storage\InvalidRefreshTokenException;
 use Stepapo\OAuth2\Storage\Clients\IClient;
-use Nette\SmartObject;
 
 /**
  * RefreshToken
@@ -22,7 +21,7 @@ class RefreshTokenFacade implements ITokenFacade
 	) {}
 
 
-	public function create(IClient $client, string|int $userId, array $scope = []): RefreshToken
+	public function create(IClient $client, string|int|null $userId, array $scope = []): RefreshToken
 	{
 		$expires = new \DateTimeImmutable('+' . $this->lifetime . ' seconds');
 		$refreshToken = new RefreshToken(
@@ -67,5 +66,4 @@ class RefreshTokenFacade implements ITokenFacade
 	{
 		return $this->storage;
 	}
-
 }

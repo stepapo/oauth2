@@ -2,8 +2,8 @@
 
 namespace Stepapo\OAuth2\Storage\AccessTokens;
 
-use Nette\SmartObject;
 use Nette\Utils\DateTime;
+
 
 /**
  * Base AccessToken entity

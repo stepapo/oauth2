@@ -2,6 +2,7 @@
 
 namespace Stepapo\OAuth2\Storage\AccessTokens;
 
+
 /**
  * IAccessToken entity
  * @package Stepapo\OAuth2\Storage\AccessTokens

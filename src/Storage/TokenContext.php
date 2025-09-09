@@ -3,7 +3,7 @@
 namespace Stepapo\OAuth2\Storage;
 
 use Stepapo\OAuth2\InvalidStateException;
-use Nette\SmartObject;
+
 
 /**
  * TokenContext
@@ -30,5 +30,4 @@ class TokenContext
 		}
 		return $this->tokens[$identifier];
 	}
-
 }

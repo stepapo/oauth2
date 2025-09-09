@@ -2,6 +2,7 @@
 
 namespace Stepapo\OAuth2\Storage\Clients;
 
+
 /**
  * OAuth2 client entity
  * @package Stepapo\OAuth2\Storage\Entity

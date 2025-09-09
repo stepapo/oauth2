@@ -2,6 +2,7 @@
 
 namespace Stepapo\OAuth2\Storage\RefreshTokens;
 
+
 /**
  * IRefreshToken entity
  * @package Stepapo\OAuth2\Storage\RefreshTokens

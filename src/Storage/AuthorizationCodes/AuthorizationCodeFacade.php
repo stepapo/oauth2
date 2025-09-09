@@ -6,7 +6,6 @@ use Stepapo\OAuth2\IKeyGenerator;
 use Stepapo\OAuth2\Storage\ITokenFacade;
 use Stepapo\OAuth2\Storage\InvalidAuthorizationCodeException;
 use Stepapo\OAuth2\Storage\Clients\IClient;
-use Nette\SmartObject;
 
 /**
  * AuthorizationCode

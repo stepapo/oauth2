@@ -9,7 +9,6 @@ use Stepapo\OAuth2\Storage\AuthorizationCodes\IAuthorizationCode;
 use Nette\Database\Context;
 use Nette\Database\SqlLiteral;
 use Nette\Database\Table\ActiveRow;
-use Nette\SmartObject;
 
 /**
  * AuthorizationCode
@@ -18,32 +17,24 @@ use Nette\SmartObject;
  */
 class AuthorizationCodeStorage implements IAuthorizationCodeStorage
 {
-	public function __construct(private Context $context)
-	{}
+	public function __construct(
+		private Context $context
+	) {}
 
-	/**
-	 * Get authorization code table
-	 * @return \Nette\Database\Table\Selection
-	 */
-	protected function getTable()
+
+	protected function getTable(): \Nette\Database\Table\Selection
 	{
 		return $this->context->table('oauth_authorization_code');
 	}
 
-	/**
-	 * Get scope table
-	 * @return \Nette\Database\Table\Selection
-	 */
-	protected function getScopeTable()
+
+	protected function getScopeTable(): \Nette\Database\Table\Selection
 	{
 		return $this->context->table('oauth_authorization_code_scope');
 	}
 
-	/******************** IAuthorizationCodeStorage ********************/
 
 	/**
-	 * Store authorization code
-	 * @param IAuthorizationCode $authorizationCode
 	 * @throws InvalidScopeException
 	 */
 	public function storeAuthorizationCode(IAuthorizationCode $authorizationCode): void
@@ -75,22 +66,14 @@ class AuthorizationCodeStorage implements IAuthorizationCodeStorage
 		$connection->commit();
 	}
 
-	/**
-	 * Remove authorization code
-	 * @param string $authorizationCode
-	 * @return void
-	 */
-	public function removeAuthorizationCode($authorizationCode): void
+
+	public function removeAuthorizationCode(string $authorizationCode): void
 	{
 		$this->getTable()->where(['authorization_code' => $authorizationCode])->delete();
 	}
 
-	/**
-	 * Validate authorization code
-	 * @param string $authorizationCode
-	 * @return IAuthorizationCode
-	 */
-	public function getValidAuthorizationCode($authorizationCode): ?IAuthorizationCode
+
+	public function getValidAuthorizationCode(string $authorizationCode): ?IAuthorizationCode
 	{
 		/** @var ActiveRow $row */
 		$row = $this->getTable()
@@ -112,6 +95,4 @@ class AuthorizationCodeStorage implements IAuthorizationCodeStorage
 			array_keys($scopes)
 		);
 	}
-
-
 }

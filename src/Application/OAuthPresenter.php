@@ -2,10 +2,12 @@
 
 namespace Stepapo\OAuth2\Application;
 
+use Nette\DI\Attributes\Inject;
 use Stepapo\OAuth2\Grant\GrantContext;
 use Stepapo\OAuth2\Grant\IGrant;
 use Stepapo\OAuth2\Grant\InvalidGrantTypeException;
 use Stepapo\OAuth2\InvalidGrantException;
+use Stepapo\OAuth2\InvalidRequestException;
 use Stepapo\OAuth2\InvalidStateException;
 use Stepapo\OAuth2\OAuthException;
 use Stepapo\OAuth2\Storage\Clients\IClient;
@@ -20,58 +22,30 @@ use Nette\Application\Responses\JsonResponse;
 use Nette\Application\UI\Presenter;
 use Nette\Http\Url;
 
+
 /**
  * OauthPresenter
  * @package Stepapo\OAuth2\Application
  * @author Drahomír Hanák
- *
- * @property-read IGrant $grantType
  */
 class OAuthPresenter extends Presenter implements IOAuthPresenter
 {
-	private GrantContext $grantContext;
-	protected AuthorizationCodeFacade $authorizationCode;
-	protected IClientStorage $clientStorage;
-	protected IClient $client;
+	#[Inject] public GrantContext $grantContext;
+	#[Inject] public AuthorizationCodeFacade $authorizationCode;
+	#[Inject] public IClientStorage $clientStorage;
+	protected ?IClient $client;
 
-	/**
-	 * Inject grant strategy context
-	 */
-	public function injectGrant(GrantContext $grantContext)
-	{
-		$this->grantContext = $grantContext;
-	}
 
-	/**
-	 * Inject token manager - authorization code
-	 */
-	public function injectAuthorizationCode(AuthorizationCodeFacade $authorizationCode)
-	{
-		$this->authorizationCode = $authorizationCode;
-	}
-
-	/**
-	 * Injet client storage
-	 */
-	public function injectClientStorage(IClientStorage $clientStorage)
-	{
-		$this->clientStorage = $clientStorage;
-	}
-
-	/**
-	 * On presenter startup
-	 */
 	protected function startup()
 	{
 		parent::startup();
 		$this->client = $this->clientStorage->getClient(
-			$this->getParameter(GrantType::CLIENT_ID_KEY),
+			$this->getParameter(GrantType::CLIENT_ID_KEY) ?: '',
 			$this->getParameter(GrantType::CLIENT_SECRET_KEY)
 		);
 	}
 
 	/**
-	 * Get grant type
 	 * @throws UnsupportedResponseTypeException
 	 */
 	public function getGrantType(): IGrant
@@ -85,9 +59,7 @@ class OAuthPresenter extends Presenter implements IOAuthPresenter
 		}
 	}
 
-	/**
-	 * Provide OAuth2 error response (redirect or at least JSON)
-	 */
+
 	public function oauthError(OAuthException $exception)
 	{
 		$error = [
@@ -97,9 +69,7 @@ class OAuthPresenter extends Presenter implements IOAuthPresenter
 		$this->oauthResponse($error, $this->getParameter('redirect_uri'), $exception->getCode());
 	}
 
-	/**
-	 * Send OAuth response
-	 */
+
 	public function oauthResponse(array|\Traversable $data, ?string $redirectUrl = null, int $code = 200): void
 	{
 		if ($data instanceof \Traversable) {
@@ -154,8 +124,6 @@ class OAuthPresenter extends Presenter implements IOAuthPresenter
 	}
 
 	/**
-	 * Issue access token to client
-	 *
 	 * @throws InvalidAuthorizationCodeException
 	 * @throws InvalidGrantTypeException
 	 * @throws InvalidStateException
@@ -177,5 +145,4 @@ class OAuthPresenter extends Presenter implements IOAuthPresenter
 			$this->oauthError(new InvalidGrantException);
 		}
 	}
-
 }

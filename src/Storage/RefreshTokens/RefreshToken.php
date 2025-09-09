@@ -2,7 +2,6 @@
 
 namespace Stepapo\OAuth2\Storage\RefreshTokens;
 
-use Nette\SmartObject;
 
 /**
  * RefreshToken
@@ -41,5 +40,4 @@ class RefreshToken implements IRefreshToken
 	{
 		return $this->userId;
 	}
-
 }

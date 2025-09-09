@@ -26,6 +26,7 @@ use Nette\DI\ServiceDefinition;
 use Nette\Schema\Expect;
 use Nette\Schema\Schema;
 
+
 /**
  * OAuth2 compiler extension
  * @package Stepapo\OAuth2\DI
@@ -33,7 +34,7 @@ use Nette\Schema\Schema;
  */
 class OAuth2Extension extends CompilerExtension
 {
-	protected $storages = [
+	protected const array STORAGES = [
 		'ndb' => [
 			'accessTokenStorage' => 'Stepapo\OAuth2\Storage\NDB\AccessTokenStorage',
 			'authorizationCodeStorage' => 'Stepapo\OAuth2\Storage\NDB\AuthorizationCodeStorage',
@@ -64,9 +65,6 @@ class OAuth2Extension extends CompilerExtension
 	}
 	
 
-	/**
-	 * Load DI configuration
-	 */
 	public function loadConfiguration()
 	{
 		$container = $this->getContainerBuilder();
@@ -121,13 +119,13 @@ class OAuth2Extension extends CompilerExtension
 		}
 
 		$container->addDefinition($this->prefix('accessTokenStorage'))
-			->setType($this->config->accessTokenStorage ?: $this->storages[$storageIndex]['accessTokenStorage']);
+			->setType($this->config->accessTokenStorage ?: self::STORAGES[$storageIndex]['accessTokenStorage']);
 		$container->addDefinition($this->prefix('refreshTokenStorage'))
-			->setType($this->config->refreshTokenStorage ?: $this->storages[$storageIndex]['refreshTokenStorage']);
+			->setType($this->config->refreshTokenStorage ?: self::STORAGES[$storageIndex]['refreshTokenStorage']);
 		$container->addDefinition($this->prefix('authorizationCodeStorage'))
-			->setType($this->config->authorizationCodeStorage ?: $this->storages[$storageIndex]['authorizationCodeStorage']);
+			->setType($this->config->authorizationCodeStorage ?: self::STORAGES[$storageIndex]['authorizationCodeStorage']);
 		$container->addDefinition($this->prefix('clientStorage'))
-			->setType($this->config->clientStorage ?: $this->storages[$storageIndex]['clientStorage']);
+			->setType($this->config->clientStorage ?: self::STORAGES[$storageIndex]['clientStorage']);
 	}
 
 

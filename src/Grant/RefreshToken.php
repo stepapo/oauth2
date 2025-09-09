@@ -5,6 +5,7 @@ namespace Stepapo\OAuth2\Grant;
 use Stepapo\OAuth2\Storage\InvalidRefreshTokenException;
 use Stepapo\OAuth2\Storage\ITokenFacade;
 
+
 /**
  * RefreshToken
  * @package Stepapo\OAuth2\Grant
@@ -12,17 +13,13 @@ use Stepapo\OAuth2\Storage\ITokenFacade;
  */
 class RefreshToken extends GrantType
 {
-	/**
-	 * Get refresh token identifier
-	 */
 	public function getIdentifier(): string
 	{
 		return self::REFRESH_TOKEN;
 	}
 
+
 	/**
-	 * Verify request
-	 *
 	 * @throws InvalidRefreshTokenException
 	 */
 	protected function verifyRequest(): void
@@ -34,9 +31,7 @@ class RefreshToken extends GrantType
 		$refreshTokenStorage->getStorage()->remove($refreshToken);
 	}
 
-	/**
-	 * Generate access token
-	 */
+
 	protected function generateAccessToken(): array
 	{
 		$accessTokenStorage = $this->token->getToken(ITokenFacade::ACCESS_TOKEN);
@@ -52,6 +47,4 @@ class RefreshToken extends GrantType
 			'refresh_token' => $refreshToken->getRefreshToken()
 		];
 	}
-
-
 }
