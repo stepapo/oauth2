@@ -19,7 +19,7 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"Stepapo\\OAuth2": "src/"
+			"Stepapo\\OAuth2\\": "src/"
 		},
 		"classmap": [
 			"src/exceptions.php",
