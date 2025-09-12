@@ -3,9 +3,9 @@
 namespace Stepapo\OAuth2\Storage\RefreshTokens;
 
 use Stepapo\OAuth2\IKeyGenerator;
-use Stepapo\OAuth2\Storage\ITokenFacade;
-use Stepapo\OAuth2\Storage\InvalidRefreshTokenException;
 use Stepapo\OAuth2\Storage\Clients\IClient;
+use Stepapo\OAuth2\Storage\InvalidRefreshTokenException;
+use Stepapo\OAuth2\Storage\ITokenFacade;
 
 /**
  * RefreshToken

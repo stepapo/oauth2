@@ -2,13 +2,12 @@
 
 namespace Stepapo\OAuth2\Application;
 
-use Nette\DI\Attributes\Inject;
-use Stepapo\OAuth2\Http\IInput;
-use Stepapo\OAuth2\Storage\AccessTokens\AccessToken;
-use Stepapo\OAuth2\Storage\AccessTokens\AccessTokenFacade;
-use Stepapo\OAuth2\Storage\InvalidAccessTokenException;
 use Nette\Application\ForbiddenRequestException;
 use Nette\Application\UI\Presenter;
+use Nette\DI\Attributes\Inject;
+use Stepapo\OAuth2\Http\IInput;
+use Stepapo\OAuth2\Storage\AccessTokens\AccessTokenFacade;
+use Stepapo\OAuth2\Storage\InvalidAccessTokenException;
 
 /**
  * OAuth2 secured resource presenter

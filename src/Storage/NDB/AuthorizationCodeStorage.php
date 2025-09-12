@@ -2,13 +2,13 @@
 
 namespace Stepapo\OAuth2\Storage\NDB;
 
-use Stepapo\OAuth2\InvalidScopeException;
-use Stepapo\OAuth2\Storage\AuthorizationCodes\AuthorizationCode;
-use Stepapo\OAuth2\Storage\AuthorizationCodes\IAuthorizationCodeStorage;
-use Stepapo\OAuth2\Storage\AuthorizationCodes\IAuthorizationCode;
 use Nette\Database\Context;
 use Nette\Database\SqlLiteral;
 use Nette\Database\Table\ActiveRow;
+use Stepapo\OAuth2\InvalidScopeException;
+use Stepapo\OAuth2\Storage\AuthorizationCodes\AuthorizationCode;
+use Stepapo\OAuth2\Storage\AuthorizationCodes\IAuthorizationCode;
+use Stepapo\OAuth2\Storage\AuthorizationCodes\IAuthorizationCodeStorage;
 
 /**
  * AuthorizationCode

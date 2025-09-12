@@ -2,6 +2,11 @@
 
 namespace Stepapo\OAuth2\DI;
 
+use Nette\DI\CompilerExtension;
+use Nette\DI\ContainerBuilder;
+use Nette\DI\Definitions\Definition;
+use Nette\Schema\Expect;
+use Nette\Schema\Schema;
 use Stepapo\OAuth2\Grant\AuthorizationCode;
 use Stepapo\OAuth2\Grant\ClientCredentials;
 use Stepapo\OAuth2\Grant\GrantContext;
@@ -18,13 +23,6 @@ use Stepapo\OAuth2\Storage\NDB\ClientStorage;
 use Stepapo\OAuth2\Storage\NDB\RefreshTokenStorage;
 use Stepapo\OAuth2\Storage\RefreshTokens\RefreshTokenFacade;
 use Stepapo\OAuth2\Storage\TokenContext;
-use Nette\Configurator;
-use Nette\DI\CompilerExtension;
-use Nette\DI\ContainerBuilder;
-use Nette\DI\Definitions\Definition;
-use Nette\DI\ServiceDefinition;
-use Nette\Schema\Expect;
-use Nette\Schema\Schema;
 
 
 /**

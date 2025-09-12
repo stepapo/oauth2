@@ -2,10 +2,10 @@
 
 namespace Stepapo\OAuth2\Grant;
 
+use Nette\Security\AuthenticationException;
 use Stepapo\OAuth2\InvalidRequestException;
 use Stepapo\OAuth2\InvalidStateException;
 use Stepapo\OAuth2\Storage\ITokenFacade;
-use Nette\Security\AuthenticationException;
 
 
 /**

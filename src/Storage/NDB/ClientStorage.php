@@ -2,10 +2,10 @@
 
 namespace Stepapo\OAuth2\Storage\NDB;
 
-use Stepapo\OAuth2\Storage\Clients\IClientStorage;
-use Stepapo\OAuth2\Storage\Clients\IClient;
-use Stepapo\OAuth2\Storage\Clients\Client;
 use Nette\Database\Context;
+use Stepapo\OAuth2\Storage\Clients\Client;
+use Stepapo\OAuth2\Storage\Clients\IClient;
+use Stepapo\OAuth2\Storage\Clients\IClientStorage;
 
 
 /**

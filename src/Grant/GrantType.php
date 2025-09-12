@@ -2,16 +2,15 @@
 
 namespace Stepapo\OAuth2\Grant;
 
+use Nette\Security\User;
 use Stepapo\OAuth2\Http\IInput;
 use Stepapo\OAuth2\InvalidClientException;
+use Stepapo\OAuth2\Storage\AccessToken;
 use Stepapo\OAuth2\Storage\Clients\IClient;
 use Stepapo\OAuth2\Storage\Clients\IClientStorage;
-use Stepapo\OAuth2\Storage\AccessToken;
 use Stepapo\OAuth2\Storage\RefreshTokenFacade;
-use Stepapo\OAuth2\InvalidStateException;
 use Stepapo\OAuth2\Storage\TokenContext;
 use Stepapo\OAuth2\UnauthorizedClientException;
-use Nette\Security\User;
 
 
 /**

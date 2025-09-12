@@ -3,9 +3,9 @@
 namespace Stepapo\OAuth2\Storage\AccessTokens;
 
 use Stepapo\OAuth2\IKeyGenerator;
-use Stepapo\OAuth2\Storage\ITokenFacade;
-use Stepapo\OAuth2\Storage\InvalidAccessTokenException;
 use Stepapo\OAuth2\Storage\Clients\IClient;
+use Stepapo\OAuth2\Storage\InvalidAccessTokenException;
+use Stepapo\OAuth2\Storage\ITokenFacade;
 
 
 /**

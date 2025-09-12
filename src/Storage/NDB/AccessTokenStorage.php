@@ -2,13 +2,13 @@
 
 namespace Stepapo\OAuth2\Storage\NDB;
 
-use Stepapo\OAuth2\InvalidScopeException;
-use Stepapo\OAuth2\Storage\AccessTokens\AccessToken;
-use Stepapo\OAuth2\Storage\AccessTokens\IAccessTokenStorage;
-use Stepapo\OAuth2\Storage\AccessTokens\IAccessToken;
 use Nette\Database\Context;
 use Nette\Database\SqlLiteral;
 use Nette\Database\Table\ActiveRow;
+use Stepapo\OAuth2\InvalidScopeException;
+use Stepapo\OAuth2\Storage\AccessTokens\AccessToken;
+use Stepapo\OAuth2\Storage\AccessTokens\IAccessToken;
+use Stepapo\OAuth2\Storage\AccessTokens\IAccessTokenStorage;
 
 
 /**

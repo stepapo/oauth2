@@ -2,25 +2,24 @@
 
 namespace Stepapo\OAuth2\Application;
 
+use Nette\Application\Responses\JsonResponse;
+use Nette\Application\UI\Presenter;
 use Nette\DI\Attributes\Inject;
+use Nette\Http\Url;
 use Stepapo\OAuth2\Grant\GrantContext;
+use Stepapo\OAuth2\Grant\GrantType;
 use Stepapo\OAuth2\Grant\IGrant;
 use Stepapo\OAuth2\Grant\InvalidGrantTypeException;
 use Stepapo\OAuth2\InvalidGrantException;
-use Stepapo\OAuth2\InvalidRequestException;
 use Stepapo\OAuth2\InvalidStateException;
 use Stepapo\OAuth2\OAuthException;
-use Stepapo\OAuth2\Storage\Clients\IClient;
 use Stepapo\OAuth2\Storage\AuthorizationCodes\AuthorizationCodeFacade;
-use Stepapo\OAuth2\Storage\InvalidAuthorizationCodeException;
-use Stepapo\OAuth2\Grant\GrantType;
+use Stepapo\OAuth2\Storage\Clients\IClient;
 use Stepapo\OAuth2\Storage\Clients\IClientStorage;
+use Stepapo\OAuth2\Storage\InvalidAuthorizationCodeException;
 use Stepapo\OAuth2\Storage\TokenException;
 use Stepapo\OAuth2\UnauthorizedClientException;
 use Stepapo\OAuth2\UnsupportedResponseTypeException;
-use Nette\Application\Responses\JsonResponse;
-use Nette\Application\UI\Presenter;
-use Nette\Http\Url;
 
 
 /**

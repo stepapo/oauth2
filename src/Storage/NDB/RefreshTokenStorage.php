@@ -2,11 +2,11 @@
 
 namespace Stepapo\OAuth2\Storage\NDB;
 
-use Stepapo\OAuth2\Storage\RefreshTokens\IRefreshTokenStorage;
-use Stepapo\OAuth2\Storage\RefreshTokens\IRefreshToken;
-use Stepapo\OAuth2\Storage\RefreshTokens\RefreshToken;
 use Nette\Database\Context;
 use Nette\Database\SqlLiteral;
+use Stepapo\OAuth2\Storage\RefreshTokens\IRefreshToken;
+use Stepapo\OAuth2\Storage\RefreshTokens\IRefreshTokenStorage;
+use Stepapo\OAuth2\Storage\RefreshTokens\RefreshToken;
 
 
 /**
